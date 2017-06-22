@@ -17,7 +17,7 @@ readMatFlimRoi1D = function(folderPath) {
   
   library(R.matlab)
   
-  fileNamesInFolder = list.files(path = folderPath)
+  fileNamesInFolder = list.files(path = folderPath, pattern = "\\.mat$")
   
   N_FILES = length(fileNamesInFolder)
   N_CHANNELS = 4
@@ -62,4 +62,4 @@ readMatFlimRoi1D = function(folderPath) {
 }
 
 # Example
-# tes = readMatFlimRoi1D('/Users/caili/Google Drive/Lab/Data/20170621 SolvEffect BP ROI Data')
+ tes = readMatFlimRoi1D('/Users/caili/Google Drive/Lab/Data/20170621 SolvEffect BP ROI Data')

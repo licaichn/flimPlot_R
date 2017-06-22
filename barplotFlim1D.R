@@ -30,10 +30,15 @@ barplotFlim1D <- function(inputData, timepoints, nameOfXlabel, nameOfSlectedFiel
     No_plots = c(grep(nameOfSlectedField, colnames(inputData)))
   }
   
+  # make timepoints an ordered factor
+  # avoid auto order of timepoints
+  timepoints = factor(timepoints, levels = timepoints)
+  
   # Plot
   
   for (iField in No_plots) {
-    p = ggplot(data = inputData, aes(x = timepoints, y  = inputData[[iField]])) + 
+    p = ggplot(data = inputData, aes(x = timepoints,
+                                     y  = inputData[[iField]])) + 
      geom_bar(stat = "identity") + 
         
      # add errorbar
