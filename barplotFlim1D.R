@@ -14,7 +14,7 @@
 
 #    Copyright:2017-, Cai Li, UC Davis
 
-barplotFlim1D <- function(inputData, timepoints, nameOfXlabel, nameOfSlectedField, folderName,
+barplotFlim1D <- function(inputData, timepoints, yAxesLim, nameOfXlabel, nameOfSlectedField, folderName,
                           imageSize) {
   
   library(ggplot2)
@@ -46,6 +46,9 @@ barplotFlim1D <- function(inputData, timepoints, nameOfXlabel, nameOfSlectedFiel
                        ymax = inputData[[iField]] + inputData[[iField + 1]]),
                    width = 0.2, 
                    position = position_dodge(0.9)) +
+      
+     # add Y limit
+     coord_cartesian(ylim = yAxesLim) +
         
      # add labels
      ylab(colnames(inputData)[iField]) +
