@@ -9,13 +9,14 @@
 #    timepoints:  a vector of time points used as x labels
 #    No_plots:  the No. of the plots going to be ploted
 #    NameOfSlectedField:  the plot name going to be ploted, like('meanINTR1')
-#    folderName:  the name of the folder to save the data if wanted
+#    folderName:  the name of the folder to save the data if wanted; you have to create the folder 
+#                 before using this
 #    imageSize:  the size of the image to be saved, a 2-elements vector, c(width, height)
 
 #    Copyright:2017-, Cai Li, UC Davis
 
-barplotFlim1D <- function(inputData, timepoints, yAxesLim, nameOfXlabel, nameOfSlectedField, folderName,
-                          imageSize) {
+barplotFlim1D <- function(inputData, timepoints, yLim, xLabel, yLabel, 
+                          nameOfSlectedField, folderName, imageSize) {
   
   library(ggplot2)
   
@@ -47,19 +48,30 @@ barplotFlim1D <- function(inputData, timepoints, yAxesLim, nameOfXlabel, nameOfS
                    width = 0.2, 
                    position = position_dodge(0.9)) +
       
-     # add Y limit
-     coord_cartesian(ylim = yAxesLim) +
-        
-     # add labels
-     ylab(colnames(inputData)[iField]) +
-     xlab(nameOfXlabel) +
-        
      # white background, add the axis lines
      theme_classic() +
         
      # font size
      theme(text = element_text(size = 20))
     
+    # add y limit
+    if(!missing(yLim)){
+      p = p + coord_cartesian(ylim = yLim)
+    }
+    
+    # add x label
+    if(!missing(xLabel)){
+      p = p + xlab(xLabel)
+    }
+    
+    # add y label
+    if(!missing(yLabel)){
+      p = p + ylab(yLabel)
+    }
+    else{
+      p = p + ylab(colnames(inputData)[iField])
+    }
+     
     # Save the data or Not
     if(missing(imageSize)){
       widthImage = 5
